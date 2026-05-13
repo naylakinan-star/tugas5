@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>WoodNest – Furniture & Home Decor</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"/>
+  <style>
+    :root {
+      --cream: #F5EFE6;
+      --warm-white: #FDFAF5;
+      --wood: #C49A6C;
+      --wood-dark: #8B6340;
+      --sage: #9BAF8E;
+      --sage-light: #D4E2CB;
+      --blush: #E8D5C4;
+      --text-dark: #3A2E25;
+      --text-mid: #6B5A4A;
+      --text-light: #A08C7A;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--warm-white);
+      color: var(--text-dark);
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 60px;
+      background: rgba(253,250,245,0.93);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(196,154,108,0.15);
+    }
+
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      color: var(--wood-dark);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-logo i { font-size: 1.3rem; color: var(--wood); }
+
+    .nav-links { display: flex; gap: 36px; list-style: none; }
+
+    .nav-links a {
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--text-mid);
+      text-decoration: none;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover { color: var(--wood); }
+
+    /* BUTTONS */
+    .btn-primary {
+      background: var(--wood);
+      color: #fff;
+      padding: 15px 36px;
+      border: none;
+      border-radius: 50px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.3s, transform 0.2s;
+      display: inline-block;
+    }
+
+    .btn-primary:hover { background: var(--wood-dark); transform: translateY(-2px); }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--wood-dark);
+      padding: 15px 36px;
+      border: 1.5px solid var(--wood);
+      border-radius: 50px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.3s;
+      display: inline-block;
+    }
+
+    .btn-secondary:hover { background: var(--blush); border-color: var(--wood-dark); }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      padding-top: 80px;
+    }
+
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 80px 60px;
+      animation: fadeUp 0.9s ease both;
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--sage);
+      background: var(--sage-light);
+      padding: 6px 16px;
+      border-radius: 20px;
+      margin-bottom: 28px;
+      width: fit-content;
+    }
+
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 5vw, 4.2rem);
+      line-height: 1.12;
+      color: var(--text-dark);
+      margin-bottom: 24px;
+    }
+
+    .hero-title em { font-style: italic; color: var(--wood); }
+
+    .hero-sub {
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: var(--text-mid);
+      max-width: 420px;
+      margin-bottom: 44px;
+    }
+
+    .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; }
+
+    .hero-right {
+      position: relative;
+      background: var(--blush);
+      overflow: hidden;
+      animation: fadeIn 1.2s ease both;
+    }
+
+    .hero-right::before {
+      content: '';
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 350px; height: 350px;
+      background: radial-gradient(circle, var(--sage-light) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+
+    .hero-right::after {
+      content: '';
+      position: absolute;
+      bottom: -40px; left: -40px;
+      width: 250px; height: 250px;
+      background: radial-gradient(circle, rgba(196,154,108,0.2) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+
+    .hero-img-wrapper {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero-photo {
+      width: 72%;
+      max-width: 380px;
+      aspect-ratio: 3/4;
+      border-radius: 24px;
+      box-shadow: 0 32px 80px rgba(58,46,37,0.22);
+      object-fit: cover;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-stats {
+      position: absolute;
+      bottom: 40px; right: 32px;
+      background: white;
+      border-radius: 16px;
+      padding: 16px 22px;
+      box-shadow: 0 8px 30px rgba(58,46,37,0.12);
+      z-index: 3;
+    }
+
+    .hero-stats-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      color: var(--wood-dark);
+      line-height: 1;
+    }
+
+    .hero-stats-label { font-size: 0.75rem; color: var(--text-light); margin-top: 2px; }
+
+    /* ABOUT */
+    .about {
+      padding: 100px 60px;
+      background: var(--cream);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .section-tag {
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--sage);
+      font-weight: 500;
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      line-height: 1.2;
+      color: var(--text-dark);
+      margin-bottom: 20px;
+    }
+
+    .section-body { font-size: 1rem; line-height: 1.8; color: var(--text-mid); }
+
+    .about-features { margin-top: 32px; display: flex; flex-direction: column; gap: 16px; }
+
+    .feature-item { display: flex; align-items: flex-start; gap: 14px; }
+
+    .feature-icon {
+      width: 42px; height: 42px;
+      background: var(--sage-light);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.15rem;
+      color: var(--wood-dark);
+      flex-shrink: 0;
+    }
+
+    .feature-text strong { display: block; font-size: 0.95rem; color: var(--text-dark); margin-bottom: 2px; }
+    .feature-text span { font-size: 0.85rem; color: var(--text-light); }
+
+    .about-photos { position: relative; height: 440px; }
+
+    .about-photo {
+      position: absolute;
+      border-radius: 20px;
+      object-fit: cover;
+      box-shadow: 0 12px 40px rgba(58,46,37,0.13);
+    }
+
+    .about-photo-1 { width: 230px; height: 280px; top: 0; left: 0; }
+    .about-photo-2 { width: 185px; height: 210px; bottom: 0; right: 0; }
+
+    .about-badge {
+      position: absolute;
+      top: 56%; left: 38%;
+      background: white;
+      border-radius: 16px;
+      padding: 14px 18px;
+      box-shadow: 0 8px 28px rgba(58,46,37,0.12);
+      text-align: center;
+      z-index: 2;
+    }
+
+    .about-badge-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      color: var(--wood-dark);
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      justify-content: center;
+    }
+
+    .about-badge-label { font-size: 0.72rem; color: var(--text-light); margin-top: 4px; }
+
+    /* PRODUCTS */
+    .products { padding: 100px 60px; background: var(--warm-white); }
+    .products-header { text-align: center; margin-bottom: 60px; }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+
+    .product-card {
+      background: white;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(58,46,37,0.06);
+      transition: transform 0.3s, box-shadow 0.3s;
+      cursor: pointer;
+    }
+
+    .product-card:hover { transform: translateY(-8px); box-shadow: 0 16px 40px rgba(58,46,37,0.14); }
+
+    .product-img-wrap { aspect-ratio: 1; position: relative; overflow: hidden; }
+
+    .product-img-wrap img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s;
+    }
+
+    .product-card:hover .product-img-wrap img { transform: scale(1.06); }
+
+    .product-badge {
+      position: absolute;
+      top: 12px; right: 12px;
+      background: var(--wood);
+      color: white;
+      font-size: 0.7rem;
+      font-weight: 500;
+      padding: 4px 10px;
+      border-radius: 20px;
+    }
+
+    .product-info { padding: 20px; }
+
+    .product-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      color: var(--text-dark);
+      margin-bottom: 4px;
+    }
+
+    .product-desc { font-size: 0.8rem; color: var(--text-light); margin-bottom: 12px; }
+
+    .product-footer { display: flex; align-items: center; justify-content: space-between; }
+
+    .product-price { font-size: 1.05rem; font-weight: 500; color: var(--wood-dark); }
+
+    .product-btn {
+      background: var(--cream);
+      border: none;
+      color: var(--wood-dark);
+      font-size: 0.8rem;
+      font-weight: 500;
+      padding: 7px 14px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: background 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .product-btn:hover { background: var(--blush); }
+
+    /* TESTIMONIALS */
+    .testimonials { padding: 100px 60px; background: var(--cream); }
+    .testimonials-header { text-align: center; margin-bottom: 60px; }
+    .testi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+
+    .testi-card { background: white; border-radius: 20px; padding: 32px; }
+
+    .testi-icon { font-size: 1.8rem; color: var(--blush); margin-bottom: 12px; display: block; }
+
+    .testi-text {
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: var(--text-mid);
+      margin-bottom: 24px;
+      font-style: italic;
+    }
+
+    .testi-author { display: flex; align-items: center; gap: 12px; }
+
+    .testi-avatar { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; }
+
+    .testi-name { font-weight: 500; font-size: 0.9rem; color: var(--text-dark); }
+    .testi-loc { font-size: 0.78rem; color: var(--text-light); }
+    .stars { color: var(--wood); font-size: 0.82rem; margin-top: 4px; letter-spacing: 1px; }
+
+    /* FOOTER */
+    footer { background: var(--text-dark); color: rgba(255,255,255,0.8); padding: 60px 60px 36px; }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 48px;
+      margin-bottom: 48px;
+    }
+
+    .footer-brand-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      color: white;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .footer-brand-name i { color: var(--wood); }
+
+    .footer-brand-desc { font-size: 0.88rem; line-height: 1.7; color: rgba(255,255,255,0.5); margin-bottom: 20px; }
+
+    .footer-socials { display: flex; gap: 10px; }
+
+    .social-btn {
+      width: 36px; height: 36px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      color: rgba(255,255,255,0.7);
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+      text-decoration: none;
+    }
+
+    .social-btn:hover { background: var(--wood); color: white; }
+
+    .footer-col-title {
+      font-size: 0.78rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      margin-bottom: 16px;
+    }
+
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+
+    .footer-links a {
+      color: rgba(255,255,255,0.6);
+      text-decoration: none;
+      font-size: 0.88rem;
+      transition: color 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .footer-links a i { font-size: 0.88rem; color: var(--wood); }
+    .footer-links a:hover { color: var(--wood); }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding-top: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-copy { font-size: 0.82rem; color: rgba(255,255,255,0.32); }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      nav { padding: 16px 24px; }
+      .nav-links { gap: 18px; }
+      .hero { grid-template-columns: 1fr; min-height: auto; }
+      .hero-left { padding: 60px 24px 40px; }
+      .hero-right { height: 360px; }
+      .about { grid-template-columns: 1fr; gap: 40px; padding: 60px 24px; }
+      .about-photos { height: 280px; }
+      .products { padding: 60px 24px; }
+      .products-grid { grid-template-columns: repeat(2, 1fr); }
+      .testimonials { padding: 60px 24px; }
+      .testi-grid { grid-template-columns: 1fr; }
+      footer { padding: 48px 24px 28px; }
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 32px; }
+      .footer-bottom { flex-direction: column; gap: 10px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">
+      <i class="bi bi-house-heart"></i>
+      WoodNest
+    </div>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#produk">Collection</a></li>
+      <li><a href="#ulasan">Reviews</a></li>
+      <li><a href="#kontak">Contact</a></li>
+    </ul>
+    <a href="#produk" class="btn-primary" style="padding:10px 24px;font-size:0.85rem;">Shop Now</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="hero-left">
+      <span class="hero-tag">
+        <i class="bi bi-tree"></i>
+        Furniture & Home Decor
+      </span>
+      <h1 class="hero-title">
+        A Home That Feels<br/>
+        <em>Warm</em> &<br/>
+        Truly Yours
+      </h1>
+      <p class="hero-sub">
+        Bring warmth and calm to every corner of your home with our curated furniture and decor collection — crafted with natural materials for a life beautifully lived.
+      </p>
+      <div class="hero-btns">
+        <a href="#produk" class="btn-primary">Browse Collection</a>
+        <a href="#about" class="btn-secondary">Our Story</a>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <div class="hero-img-wrapper">
+        <img
+          class="hero-photo" src="asset/kursiijo.jpg" alt="furniture" />
+        <div class="hero-stats">
+          <div class="hero-stats-num">500+</div>
+          <div class="hero-stats-label">Products Available</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div>
+      <p class="section-tag">About the Brand</p>
+      <h2 class="section-title">We Believe Every Home<br/>Is a Work of Art</h2>
+      <p class="section-body">
+        WoodNest was born from a love of warm, functional design. We bring quality furniture and decor crafted from natural materials — solid wood, rattan, and linen — that make every room feel alive and meaningful.
+      </p>
+      <div class="about-features">
+        <div class="feature-item">
+          <div class="feature-icon"><i class="bi bi-leaf"></i></div>
+          <div class="feature-text">
+            <strong>Eco-Friendly Materials</strong>
+            <span>Certified solid wood and sustainably sourced naturals</span>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon"><i class="bi bi-palette2"></i></div>
+          <div class="feature-text">
+            <strong>Custom Design</strong>
+            <span>Personalize colors and dimensions to fit your space</span>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon"><i class="bi bi-truck"></i></div>
+          <div class="feature-text">
+            <strong>Nationwide Shipping</strong>
+            <span>Free delivery on orders above Rp 1.500.000</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="about-photos">
+      <img
+        class="about-photo about-photo-1"
+        src="asset/jamur sofa.jpg" alt="mushroom chair" />
+      <img
+        class="about-photo about-photo-2"
+        src="asset/Almari Baju + Laci Moden Minimalis _ Wardrobe Storage Cabinet with Rak & Drawer - Meiji.jpg"
+        alt="Minimalist home decor almari"
+      />
+      <div class="about-badge">
+        <div class="about-badge-num">
+          4.9 <i class="bi bi-star-fill" style="color:var(--wood);font-size:0.85rem;"></i>
+        </div>
+        <div class="about-badge-label">Customer Rating</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCTS -->
+  <section class="products" id="produk">
+    <div class="products-header">
+      <p class="section-tag">Featured Collection</p>
+      <h2 class="section-title">Our Best Picks for Your Home</h2>
+    </div>
+
+    <div class="products-grid">
+      <div class="product-card">
+        <div class="product-img-wrap">
+          <img src="asset/Sereno Sofa Set-U Shaped.jpg" alt="Sereno Sofa"/>
+          <span class="product-badge">Best Seller</span>
+        </div>
+        <div class="product-info">
+          <div class="product-name">Sereno Sofa</div>
+          <div class="product-desc">Grey linen fabric, deep seat, solid teak frame</div>
+          <div class="product-footer">
+            <div class="product-price">Rp 4.200.000</div>
+            <button class="product-btn"><i class="bi bi-bag-plus"></i> Add</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img-wrap">
+          <img src="asset/Best category Rectangular Wall Mirror with Wooden Frame (Pink).jpg" alt="Boho Mirror"/>
+          <span class="product-badge">New</span>
+        </div>
+        <div class="product-info">
+          <div class="product-name">Boho Mirror</div>
+          <div class="product-desc">Woven rattan frame, 80cm diameter</div>
+          <div class="product-footer">
+            <div class="product-price">Rp 850.000</div>
+            <button class="product-btn"><i class="bi bi-bag-plus"></i> Add</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img-wrap">
+          <img src="asset/dining chair.jpg" alt="Amazon Dining Chair"/>
+        </div>
+        <div class="product-info">
+          <div class="product-name">Amazon Dining Chair</div>
+          <div class="product-desc">Minimalist design, solid mahogany wood</div>
+          <div class="product-footer">
+            <div class="product-price">Rp 1.350.000</div>
+            <button class="product-btn"><i class="bi bi-bag-plus"></i> Add</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img-wrap">
+          <img src="asset/pot set.jpg" alt="Terracotta Pot Set"/>
+        </div>
+        <div class="product-info">
+          <div class="product-name">Terracotta Pot Set</div>
+          <div class="product-desc">Set of 3 clay pots with saucers, long-lasting</div>
+          <div class="product-footer">
+            <div class="product-price">Rp 420.000</div>
+            <button class="product-btn"><i class="bi bi-bag-plus"></i> Add</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials" id="ulasan">
+    <div class="testimonials-header">
+      <p class="section-tag">Customer Reviews</p>
+      <h2 class="section-title">What Our Customers Say</h2>
+    </div>
+
+    <div class="testi-grid">
+      <div class="testi-card">
+        <i class="bi bi-chat-quote-fill testi-icon"></i>
+        <p class="testi-text">
+          The Sereno Sofa completely transformed my living room. The wood and linen quality is premium, way beyond my expectations!
+        </p>
+        <div class="testi-author">
+          <img class="testi-avatar" src="https://i.pravatar.cc/100?img=47" alt="Ayu Ratnaningsih"/>
+          <div>
+            <div class="testi-name">Ayu Ratnaningsih</div>
+            <div class="testi-loc">Semarang, Central Java</div>
+            <div class="stars">
+              <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card">
+        <i class="bi bi-chat-quote-fill testi-icon"></i>
+        <p class="testi-text">
+          Super fast delivery and carefully packed. The Kaia Chair is sturdy and timeless — fits perfectly with my Scandinavian interior.
+        </p>
+        <div class="testi-author">
+          <img class="testi-avatar" src="https://i.pravatar.cc/100?img=12" alt="Bima Saputra"/>
+          <div>
+            <div class="testi-name">Bima Saputra</div>
+            <div class="testi-loc">Yogyakarta, DIY</div>
+            <div class="stars">
+              <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card">
+        <i class="bi bi-chat-quote-fill testi-icon"></i>
+        <p class="testi-text">
+          The team was so friendly and helpful with recommendations. The terracotta pots look amazing — every guest asks where I got them!
+        </p>
+        <div class="testi-author">
+          <img class="testi-avatar" src="https://i.pravatar.cc/100?img=5" alt="Dinda Kusuma"/>
+          <div>
+            <div class="testi-name">Dinda Kusuma</div>
+            <div class="testi-loc">Solo, Central Java</div>
+            <div class="stars">
+              <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer id="kontak">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand-name">
+          <i class="bi bi-house-heart-fill"></i>
+          WoodNest
+        </div>
+        <div class="footer-brand-desc">
+          Quality furniture and home decor that brings warmth and character to every room in your home.
+        </div>
+        <div class="footer-socials">
+          <a class="social-btn" href="#"><i class="bi bi-instagram"></i></a>
+          <a class="social-btn" href="#"><i class="bi bi-facebook"></i></a>
+          <a class="social-btn" href="#"><i class="bi bi-twitter-x"></i></a>
+          <a class="social-btn" href="#"><i class="bi bi-youtube"></i></a>
+        </div>
+      </div>
+
+      <div>
+        <div class="footer-col-title">Navigation</div>
+        <ul class="footer-links">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#produk">Collection</a></li>
+          <li><a href="#ulasan">Reviews</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="footer-col-title">Services</div>
+        <ul class="footer-links">
+          <li><a href="#">Custom Furniture</a></li>
+          <li><a href="#">Design Consultation</a></li>
+          <li><a href="#">Product Warranty</a></li>
+          <li><a href="#">Returns & Refunds</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="footer-col-title">Contact</div>
+        <ul class="footer-links">
+          <li><a href="#"><i class="bi bi-geo-alt-fill"></i> Jl. Diponegoro No. 88, Semarang</a></li>
+          <li><a href="#"><i class="bi bi-telephone-fill"></i> +62 812-3456-7890</a></li>
+          <li><a href="#"><i class="bi bi-envelope-fill"></i> hello@woodnest.id</a></li>
+          <li><a href="#"><i class="bi bi-clock-fill"></i> Mon – Sat, 09.00 – 18.00</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2026 WoodNest. All rights reserved.</div>
+      <div class="footer-copy">Crafted with care for a more beautiful home.</div>
+    </div>
+  </footer>
+
+</body>
+</html>
